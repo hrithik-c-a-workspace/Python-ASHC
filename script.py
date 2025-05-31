@@ -2,14 +2,18 @@ import psutil
 
 class SystemMonitor:
 
+    def __init__(self):
+        self.data = self.refresh_data()
+
+    def refresh_data(self):
+        return psutil.virtual_memory()._asdict()
+
     def getRamInfo(self):
-        ram_info = psutil.virtual_memory()._asdict()
-        
         return { 
-            'total': self.convert_bytes(ram_info['total']),
-             'available': self.convert_bytes(ram_info['available']),
-             'percent': self.convert_bytes(ram_info['percent']),
-             'used': self.convert_bytes(ram_info['used'])     
+             'total': self.convert_bytes(self.data['total']),
+             'available': self.convert_bytes(self.data['available']),
+             'percent': self.data['percent'],
+             'used': self.convert_bytes(self.data['used'])     
             }
 
 
@@ -19,7 +23,7 @@ class SystemMonitor:
 
     def display_ram_info(self):
         info = self.getRamInfo()
-        print(f"Total RAM: {info['total']}GB, Available RAM: {info['available']}GB, Used RAM: {info['used']}GB")
+        print(f"RAM Used: {info['percent']}%, Total: {info['total']}GB, Available: {info['available']}GB, Used: {info['used']}GB")
         
 
 monitor = SystemMonitor()
