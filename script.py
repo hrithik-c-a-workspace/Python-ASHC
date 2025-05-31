@@ -3,18 +3,35 @@ import psutil
 class SystemMonitor:
 
     def __init__(self):
-        self.data = self.refresh_data()
+        data = self.refresh_data()
+
+        self.ram_data = data['ram']
+        self.cpu_data = data['cpu']
+        self.disk_data = None
 
     def refresh_data(self):
-        return psutil.virtual_memory()._asdict()
+        return {
+            'ram': psutil.virtual_memory()._asdict(),
+            'cpu': {
+                'count': psutil.cpu_count(),
+                'frequency': psutil.cpu_freq()._asdict(),
+                'percent': psutil.cpu_times_percent()._asdict()
+                },
+        }
 
     def getRamInfo(self):
         return { 
-             'total': self.convert_bytes(self.data['total']),
-             'available': self.convert_bytes(self.data['available']),
-             'percent': self.data['percent'],
-             'used': self.convert_bytes(self.data['used'])     
-            }
+            'total': self.convert_bytes(self.ram_data['total']),
+            'available': self.convert_bytes(self.ram_data['available']),
+            'percent': self.ram_data['percent'],
+            'used': self.convert_bytes(self.ram_data['used'])     
+        }
+    
+    def getCpuInfo(self):
+        return {
+            'count': self.cpu_data['count'],
+            'frequency': self.cpu_data['frequency'],
+        }
 
 
     @staticmethod
@@ -24,7 +41,15 @@ class SystemMonitor:
     def display_ram_info(self):
         info = self.getRamInfo()
         print(f"RAM Used: {info['percent']}%, Total: {info['total']}GB, Available: {info['available']}GB, Used: {info['used']}GB")
+
+    def display_cpu_info(self):
+        info = self.getCpuInfo()
+        print(f"CPU Frequency: {info['frequency']['current']}, Total CPU Cores: {info['count']}")
+
         
 
 monitor = SystemMonitor()
 monitor.display_ram_info()
+monitor.display_cpu_info()
+
+# Clean after completeing the project
