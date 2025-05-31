@@ -1,11 +1,16 @@
 # Python-ASHC
 A CLI tool that runs system health checks & logs results.
 
-##🏗️ Goal of the project (Brief intro in README)
-Automate system health checks using python
-
-##🚀 Technologies Used (List of tools & versions)
-	
-##📌 Setup & Deployment Steps (How someone can run it)
+	• 🏗️ Purpose of the project
+ 	Automate system health checks using python
   
-##🔍 Screenshots or Workflow Diagrams (Visual guides)![image](https://github.com/user-attachments/assets/2ba88972-d053-494e-8d13-7bf008763e05)
+	• 🚀 Technologies Used
+ 	- Python3
+ 	-
+  
+	• 📌 Setup & Deployment Steps
+ 	-
+  	-
+ 
+🔍 Screenshots or Workflow Diagrams (Visual guides)![image](https://github.com/user-attachments/assets/09940e4d-4275-4975-bcf9-8a088e0415d9)
+
